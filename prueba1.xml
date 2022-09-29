@@ -12,6 +12,10 @@
                     <identificacion> #1f48</identificacion>
                     <encargado> Pablo </encargado>
                     </escritorio>
+                    <escritorio id="7">
+                    <identificacion> #1f478</identificacion>
+                    <encargado> Rac </encargado>
+                    </escritorio>
                 </listaEscritorios>
             </puntoAtencion>
             <puntoAtencion id="4">
@@ -26,8 +30,8 @@
             </puntoAtencion>
         </listaPuntosAtencion>
         <listaTransacciones>
-            <transaccion id="249">
-                <nombre> Pago Laptop </nombre>
+            <transaccion id="438">
+                <nombre> Pago Laptop 1 </nombre>
                 <tiempoAtencion> 30 </tiempoAtencion>
             </transaccion>
         </listaTransacciones>
@@ -40,17 +44,17 @@
                 <nombre> Portales </nombre>
                 <direccion> Centro comercial Portales</direccion>
                 <listaEscritorios>
-                    <escritorio id="1">
-                    <identificacion> #1f48</identificacion>
-                    <encargado> Pablo </encargado>
+                    <escritorio id="6">
+                    <identificacion> #1f50</identificacion>
+                    <encargado> rian </encargado>
                     </escritorio>
                 </listaEscritorios>
             </puntoAtencion>
         </listaPuntosAtencion>
         <listaTransacciones>
             <transaccion id="249">
-                <nombre> Pago Laptop </nombre>
-                <tiempoAtencion> 30 </tiempoAtencion>
+                <nombre> Pago Laptop 2</nombre>
+                <tiempoAtencion> 60 </tiempoAtencion>
             </transaccion>
         </listaTransacciones>
     </empresa>
