@@ -4,10 +4,8 @@ class nodo():
         self.siguiente=None
     
 
-
     def getsiguiente(self):
         return self.siguiente
-
 
 
     def setsiguiente(self, siguiente):

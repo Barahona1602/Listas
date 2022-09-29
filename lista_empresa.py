@@ -27,9 +27,8 @@ class listaempresa():
 
     def mostrar_empresa(self):
         tmp = self.primero
-        conteo=0
         while tmp is not None:
-            conteo=conteo+1
+            print("--EMPRESA--")
             print("ID: ", tmp.dato[0])
             print("Nombre: ", tmp.dato[1])
             print("Abreviación: ", tmp.dato[2])
@@ -53,9 +52,5 @@ class listaempresa():
                             break
 
                 numeracion_puntoa+=1
-            
-
-
-
             print("---------------------------------")
             tmp=tmp.getsiguiente()

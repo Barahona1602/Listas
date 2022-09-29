@@ -1,11 +1,7 @@
-from re import I
-from selectors import SelectSelector
 from tkinter import filedialog
-from xml.dom import minidom
 from tkinter import filedialog as fd
 import xml.etree.ElementTree as ET
 import numpy as np
-from nodo import nodo
 from lista_empresa import listaempresa
 
 
@@ -36,7 +32,6 @@ if numero=="1":
         lista_puntosa=k.find('listaPuntosAtencion')
         puntosa=[]
         escritorio=[]
-        cont=0
         for l in lista_puntosa.findall('puntoAtencion'):
             puntosa_id=(l.attrib.get('id'))
             puntosa_nombre=(l.find('nombre').text)
@@ -48,10 +43,7 @@ if numero=="1":
                 escritorio_codigo=(m.find('identificacion').text)
                 escritorio_encargado=(m.find('encargado').text)
                 escritorio.append([puntosa_id, escritorio_id, escritorio_codigo, escritorio_encargado])
-                cont+=1
-
-
-
+                
 
         listaempresa.insertar_empresa(empresa_id, empresa_nombre, empresa_abr, puntosa, escritorio)
     listaempresa.mostrar_empresa()
