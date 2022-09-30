@@ -11,9 +11,9 @@ class listaempresa():
         
 
 
-    def insertar_empresa(self, idE, nombre, abreviatura, lista_puntosa, lista_escritorio):
+    def insertar_empresa(self, idE, nombre, abreviatura, lista_puntosa, lista_escritorio, lista_trans):
         global empresa_data
-        empresa_data= nodo(dato=[idE, nombre, abreviatura, lista_puntosa, lista_escritorio])
+        empresa_data= nodo(dato=[idE, nombre, abreviatura, lista_puntosa, lista_escritorio, lista_trans])
         self.size += 1
         if self.primero is None:
             self.primero = empresa_data
@@ -24,10 +24,13 @@ class listaempresa():
                 tmp=tmp.getsiguiente()
             tmp.setsiguiente(empresa_data)
     
+    
 
+    #Método para imprimir lista
     def mostrar_empresa(self):
         tmp = self.primero
         while tmp is not None:
+            print("- - - - - - - - - - - - - - - - - - - - - - - - -")
             print("--EMPRESA--")
             print("ID: ", tmp.dato[0])
             print("Nombre: ", tmp.dato[1])
@@ -50,7 +53,24 @@ class listaempresa():
                             print("Nombre: ", tmp.dato[4][numeracion_esc][3])
                             numeracion_esc+=1
                             break
-
                 numeracion_puntoa+=1
-            print("---------------------------------")
+            print("- - - - - - - - - - - - - - - - - - - - - - - - -")
             tmp=tmp.getsiguiente()
+            print(self.size)
+            
+
+            
+    def eliminardatos(self):
+        if self.size>0:
+            self.primero=None
+            self.ultimo= None
+            self.size=0
+            print(self.size)
+
+
+    def imprimir(self):
+        tmp = self.primero
+        while tmp is not None:
+            print(tmp.dato)
+            tmp=tmp.getsiguiente()
+            

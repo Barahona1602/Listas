@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <listadoInicial>
-    <configInicial id="21" idEmpresa="25" idPunto="2">
+    <configInicial id="21" idEmpresa="8" idPunto="2">
         <escritoriosActivos>
             <escritorio idEscritorio="5"/>
             <escritorio idEscritorio="14"/>
         </escritoriosActivos>
         <listadoClientes>
             <cliente dpi="145587">
-                <nombre> Roberto Culo Abierto </nombre>
+                <nombre> Roberts </nombre>
                 <listadoTransacciones>
                     <transaccion idTransaccion="450" cantidad="2300"/>
                     <transaccion idTransaccion="120" cantidad="1240"/>

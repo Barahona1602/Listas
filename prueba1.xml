@@ -4,7 +4,7 @@
         <nombre> Gabriel y Asociados </nombre>
         <abreviatura> G.Y.A </abreviatura>
         <listaPuntosAtencion>
-            <puntoAtencion id="3">
+            <puntoAtencion id="2">
                 <nombre> Majadas </nombre>
                 <direccion> Centro comercial Majadas</direccion>
                 <listaEscritorios>
@@ -12,7 +12,7 @@
                     <identificacion> #1f48</identificacion>
                     <encargado> Pablo </encargado>
                     </escritorio>
-                    <escritorio id="7">
+                    <escritorio id="5">
                     <identificacion> #1f478</identificacion>
                     <encargado> Rac </encargado>
                     </escritorio>
@@ -22,7 +22,7 @@
                 <nombre> Miraflores </nombre>
                 <direccion> Centro comercial Miraflores</direccion>
                 <listaEscritorios>
-                    <escritorio id="2">
+                    <escritorio id="14">
                     <identificacion> #1f49</identificacion>
                     <encargado> Jomchua </encargado>
                     </escritorio>
@@ -40,7 +40,7 @@
         <nombre> Patronilo y Asociados </nombre>
         <abreviatura> P.Y.A </abreviatura>
         <listaPuntosAtencion>
-            <puntoAtencion id="2">
+            <puntoAtencion id="3">
                 <nombre> Portales </nombre>
                 <direccion> Centro comercial Portales</direccion>
                 <listaEscritorios>
