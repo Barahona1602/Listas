@@ -23,10 +23,10 @@ class listatrans():
 
 
 
-    def mostrar_empresa(self):
+
+    def mostrar_trans(self):
         tmp = self.primero
         while tmp is not None:
-            numeracion_trans=0
             print("--TRANSACCIONES--")
             print("ID: ", tmp.dato[0])
             print("ID Empresa: ", tmp.dato[1])
@@ -42,7 +42,6 @@ class listatrans():
                 print("ID transacción: ", tmp.dato[6][cont_id][0])
                 print("Cantidad: ", tmp.dato[7][cont_id][0])
                 cont_id+=1
-            numeracion_trans+=1
             tmp=tmp.getsiguiente()
 
 

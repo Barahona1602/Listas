@@ -9,8 +9,8 @@
             <cliente dpi="145587">
                 <nombre> Roberts </nombre>
                 <listadoTransacciones>
-                    <transaccion idTransaccion="450" cantidad="2300"/>
-                    <transaccion idTransaccion="120" cantidad="1240"/>
+                    <transaccion idTransaccion="450" cantidad="1"/>
+                    <transaccion idTransaccion="120" cantidad="2"/>
                 </listadoTransacciones>
             </cliente>
         </listadoClientes>

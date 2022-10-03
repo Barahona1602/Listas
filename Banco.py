@@ -131,6 +131,12 @@ def insertar_trans():
     # listaempresa.mostrar_empresa()
 
 
+def pedirempresa():
+    listaempresa.mostrar_empresa2()
+    busqueda=input("Seleccione una empresa por id: ")
+    listaempresa.empresaseleccionada(busqueda)
+    
+
 
 
 
@@ -148,6 +154,9 @@ def pedirNumeroEntero():
             print("2. Cargar archivo de configuración del sistema")
             print("3. Crear nueva empresa")
             print("4. Cargar archivo inicial de prueba")
+            print("5. Ver datos de empresas")
+            print("6. Ver listado de clientes")
+            print("7. Seleccionar empresa")
             
             print ("Elige una opcion")
             num = int(input("Introduce un número: "))
@@ -171,6 +180,7 @@ def pedirNumeroEntero():
         elif opcion == 2:
             print("Leyendo archivos...")
             cargararchivo()
+            print("Archivos cargados exitosamente")
             pedirNumeroEntero()
         elif opcion == 3:
             print("Creando empresa...")
@@ -179,15 +189,22 @@ def pedirNumeroEntero():
         elif opcion == 4:
             print("Cargando archivos...")
             insertar_trans()
-            listatrans.mostrar_empresa()
+            print("Archivos cargados exitosamente")
             pedirNumeroEntero()
         elif opcion == 5:
-            print("Seleccionando empresa...")
+            print("Cargando empresa...")
+            listaempresa.mostrar_empresa()
             pedirNumeroEntero()
-        elif opcion ==6:
-            salir = True
+        elif opcion==6:
+            print("Cargando clientes...")
+            listatrans.mostrar_trans()
+            pedirNumeroEntero()
+        elif opcion ==7:
+            print("Cargando empresa...")
+            pedirempresa()
+            pedirNumeroEntero()
         else:
-            print ("Introduce un numero entre 1 y 6")
+            print ("Introduce un numero entre 1 y 7")
 
 compile()
 

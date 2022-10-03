@@ -54,18 +54,34 @@ class listaempresa():
                             numeracion_esc+=1
                             break
                 numeracion_puntoa+=1
+            numeracion_trans=0
+            for i in tmp.dato[5]:
+                print("-- TRANSACCIONES --")
+                print("ID: ", tmp.dato[5][numeracion_trans][0])
+                print("Nombre: ", tmp.dato[5][numeracion_trans][1])
+                print("Tiempo de duración: ", tmp.dato[5][numeracion_trans][2])
+                numeracion_trans+=1
             print("- - - - - - - - - - - - - - - - - - - - - - - - -")
             tmp=tmp.getsiguiente()
-            print(self.size)
+        print(f"Empresas creadas: {self.size}")
             
-
+    #Método para imprimir lista
+    def mostrar_empresa2(self):
+        tmp = self.primero
+        while tmp is not None:
+            print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+            print("--EMPRESA--")
+            print("ID: ", tmp.dato[0])
+            print("Nombre: ", tmp.dato[1])
+            print("Abreviación: ", tmp.dato[2])
+            tmp=tmp.getsiguiente()
             
     def eliminardatos(self):
         if self.size>0:
             self.primero=None
             self.ultimo= None
             self.size=0
-            print(self.size)
+            print(f"Empresas creadas: {self.size}")
 
 
     def imprimir(self):
@@ -74,3 +90,52 @@ class listaempresa():
             print(tmp.dato)
             tmp=tmp.getsiguiente()
             
+
+
+
+    def empresaseleccionada(self, bus):
+            tmp = self.primero
+            numeracion_puntoa2=0
+            while tmp is not None:
+                if bus != tmp.dato[0]:
+                    tmp=tmp.getsiguiente()
+                else:
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("-- EMPRESA SELECCIONADA --")
+                    print("ID: ", tmp.dato[0])
+                    print("Nombre: ", tmp.dato[1])
+                    print("Abreviación: ", tmp.dato[2])
+                    print("--PUNTOS DE ATENCIÓN--")
+                    numeracion_puntoa=0
+                    for i in tmp.dato[3]:    
+                        print("ID: ", tmp.dato[3][numeracion_puntoa][0])
+                        print("Nombre: ", tmp.dato[3][numeracion_puntoa][1])
+                        print("Direccion: ", tmp.dato[3][numeracion_puntoa][2])
+                        numeracion_puntoa+=1
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    punto=input("Seleccione su punto de atención: ")
+                    while punto != tmp.dato[3][numeracion_puntoa2][0]:
+                        numeracion_puntoa2+=1
+                    else:
+                        print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                        print("-- PUNTO DE ATENCIÓN SELECCIONADO --")
+                        print("ID: ", tmp.dato[3][numeracion_puntoa2][0])
+                        print("Nombre: ", tmp.dato[3][numeracion_puntoa2][1])
+                        print("Direccion: ", tmp.dato[3][numeracion_puntoa2][2])
+                        print("-- ESCRITORIOS --")
+                        numeracion_esc=0
+                        for i in tmp.dato[4]:
+                            if tmp.dato[4][numeracion_esc][0]!=tmp.dato[3][numeracion_puntoa2][0]:
+                                numeracion_esc+=1
+                            else:
+                                while tmp.dato[4][numeracion_esc][0]==tmp.dato[3][numeracion_puntoa2][0]:
+                                    print("ID: ", tmp.dato[4][numeracion_esc][1])
+                                    print("Código: ", tmp.dato[4][numeracion_esc][2])
+                                    print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                                    numeracion_esc+=1
+                                    break
+                    break
+
+
+
