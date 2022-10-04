@@ -46,7 +46,8 @@ def cargararchivo():
                 escritorio_id=(m.attrib.get('id'))
                 escritorio_codigo=(m.find('identificacion').text)
                 escritorio_encargado=(m.find('encargado').text)
-                escritorio.append([puntosa_id, escritorio_id, escritorio_codigo, escritorio_encargado])
+                escritorio_estado=True
+                escritorio.append([puntosa_id, escritorio_id, escritorio_codigo, escritorio_encargado, escritorio_estado])
         for n in lista_trans.findall('transaccion'):
             trans_id=(n.attrib.get('id'))
             trans_nombre=(n.find('nombre').text)
@@ -150,13 +151,10 @@ def pedirNumeroEntero():
     while(not correcto):
         try:
             print("- - - - - - - - - - - MENU - - - - - - - - - - -")
-            print("1. Limpiar Sistema")
-            print("2. Cargar archivo de configuración del sistema")
-            print("3. Crear nueva empresa")
-            print("4. Cargar archivo inicial de prueba")
-            print("5. Ver datos de empresas")
-            print("6. Ver listado de clientes")
-            print("7. Seleccionar empresa")
+            print("1. Configuración de empresa")
+            print("2. Selección de empresa y punto de atención")
+            print("3. Manejo de puntos de atención")
+            print("4. Salir de programa")
             
             print ("Elige una opcion")
             num = int(input("Introduce un número: "))
@@ -170,27 +168,84 @@ def pedirNumeroEntero():
     opcion = 0
 
     while not salir:
-
+          
         opcion = num
-    
+        
         if opcion == 1:
-            print("Limpiando Sistema...")
-            listaempresa.eliminardatos()
-            pedirNumeroEntero()
+            regresar = False
+            while not regresar:
+                print("- - - - - - CONFIGURACIÓN DE EMPRESAS - - - - - -")
+                print("1. Limpiar Sistema")
+                print("2. Cargar archivo de configuración del sistema")
+                print("3. Crear nueva empresa")
+                print("4. Cargar archivo inicial de prueba")
+                print("5. Regresar")
+                print ("Elige una opcion")
+                num2 = int(input("Introduce un número: "))
+
+
+                if num2==1:
+                    print("Limpiando Sistema...")
+                    listaempresa.eliminardatos()
+                elif num2==2:
+                    print("Leyendo archivos...")
+                    cargararchivo()
+                    print("Archivos cargados exitosamente")
+                elif num2==3:
+                    print("Creando empresa...")
+                    agregarempresa()
+                elif num2==4:
+                    print("Cargando archivos...")
+                    insertar_trans()
+                    print("Archivos cargados exitosamente")
+                elif num2==5:
+                    pedirNumeroEntero()
+
+
         elif opcion == 2:
-            print("Leyendo archivos...")
-            cargararchivo()
-            print("Archivos cargados exitosamente")
+            print("Cargando empresa...")
+            pedirempresa()
             pedirNumeroEntero()
+
         elif opcion == 3:
-            print("Creando empresa...")
-            agregarempresa()
-            pedirNumeroEntero()
+            regresar = False
+            while not regresar:
+                print("- - - - - - MANEJO DE PUNTOS DE ATENCIÓN - - - - - -")
+                print("1. Ver estado del punto de atención")
+                print("2. Activar escritorio de servicio")
+                print("3. Desactivar escritorio")
+                print("4. Atender cliente")
+                print("5. Solicitud de atención")
+                print("6. Simular actividad del punto de atención")
+                print("7. Regresar")
+                print ("Elige una opcion")
+                num2 = int(input("Introduce un número: "))
+
+
+                if num2==1:
+                    pass
+                elif num2==2:
+                    pass
+                elif num2==3:
+                    pass
+                elif num2==4:
+                    pass
+                elif num2==5:
+                    pass
+                elif num2==6:
+                    pass
+                elif num2==7:
+                    pedirNumeroEntero()
+                    
+
+
         elif opcion == 4:
-            print("Cargando archivos...")
-            insertar_trans()
-            print("Archivos cargados exitosamente")
-            pedirNumeroEntero()
+            print(" - - - - - - - - - - - - - - -")
+            print("ESPERAMOS VERTE PRONTO")
+            print(" - - - - - - - - - - - - - - -")
+            quit()
+        
+        
         elif opcion == 5:
             print("Cargando empresa...")
             listaempresa.mostrar_empresa()
@@ -199,15 +254,10 @@ def pedirNumeroEntero():
             print("Cargando clientes...")
             listatrans.mostrar_trans()
             pedirNumeroEntero()
-        elif opcion ==7:
-            print("Cargando empresa...")
-            pedirempresa()
-            pedirNumeroEntero()
         else:
             print ("Introduce un numero entre 1 y 7")
 
 compile()
-
 
 
 

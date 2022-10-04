@@ -1,3 +1,4 @@
+from stringprep import in_table_d2
 from nodo import nodo
 import numpy as np
 import xml.etree.cElementTree as ET
@@ -51,6 +52,10 @@ class listaempresa():
                             print("ID: ", tmp.dato[4][numeracion_esc][1])
                             print("Código: ", tmp.dato[4][numeracion_esc][2])
                             print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                            if tmp.dato[4][numeracion_esc][4]==True:
+                                print("Estado de escritorio:  ACTIVO")
+                            else:
+                                print("Estado de escritorio:  INACTIVO")
                             numeracion_esc+=1
                             break
                 numeracion_puntoa+=1
@@ -91,7 +96,26 @@ class listaempresa():
             tmp=tmp.getsiguiente()
             
 
-
+    def trans(self, ids, idE, idP, idEs, dpi, nombre, idT, cant):
+        global id2
+        id2=ids
+        global idE2
+        idE2=idE
+        global idP2
+        idP2=idP
+        global idEs2
+        idEs2=[]
+        idEs2=idEs
+        global dpi2
+        dpi2=dpi
+        global nombre2
+        nombre2=nombre
+        global idT2
+        idT2=[]
+        idT2=idT
+        global cant2
+        cant2=[]
+        cant2=cant
 
     def empresaseleccionada(self, bus):
             tmp = self.primero
@@ -133,6 +157,10 @@ class listaempresa():
                                     print("ID: ", tmp.dato[4][numeracion_esc][1])
                                     print("Código: ", tmp.dato[4][numeracion_esc][2])
                                     print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                                    if tmp.dato[4][numeracion_esc][4]==True:
+                                        print("Estado de escritorio:  ACTIVO")
+                                    else:
+                                        print("Estado de escritorio:  INACTIVO")
                                     numeracion_esc+=1
                                     break
                     break
