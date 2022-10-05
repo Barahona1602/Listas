@@ -1,4 +1,3 @@
-from stringprep import in_table_d2
 from nodo import nodo
 import numpy as np
 import xml.etree.cElementTree as ET
@@ -26,6 +25,27 @@ class listaempresa():
             tmp.setsiguiente(empresa_data)
     
     
+
+
+    
+    def mostrarinicio(self):
+        tmp = self.primero
+        while tmp is not None:
+            print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+            print("--EMPRESA--")
+            print("ID: ", tmp.dato[0])
+            print("Nombre: ", tmp.dato[1])
+            print("Abreviación: ", tmp.dato[2])
+            numeracion_puntoa=0
+            for i in tmp.dato[3]:
+                print("--PUNTO DE ATENCIÓN--")
+                print("ID: ", tmp.dato[3][numeracion_puntoa][0])
+                print("Nombre: ", tmp.dato[3][numeracion_puntoa][1])
+                print("Direccion: ", tmp.dato[3][numeracion_puntoa][2])
+                numeracion_puntoa+=1
+            tmp=tmp.getsiguiente()
+
+
 
     #Método para imprimir lista
     def mostrar_empresa(self):
@@ -69,7 +89,32 @@ class listaempresa():
             print("- - - - - - - - - - - - - - - - - - - - - - - - -")
             tmp=tmp.getsiguiente()
         print(f"Empresas creadas: {self.size}")
-            
+
+
+    def mostrartrans(self, idE, idP):
+        tmp = self.primero
+        numeracion_puntoa2=0
+        while tmp is not None:
+            if idE != tmp.dato[0]:
+                tmp=tmp.getsiguiente()
+            else:
+                while idP != tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[3] son los puntos de atención
+                    numeracion_puntoa2+=1
+                else:
+                    numeracion_trans=0
+                    print("-- TRANSACCIONES --")
+                    for i in tmp.dato[5]:
+                        print("ID: ", tmp.dato[5][numeracion_trans][0])
+                        print("Nombre: ", tmp.dato[5][numeracion_trans][1])
+                        print("Tiempo de duración: ", tmp.dato[5][numeracion_trans][2])
+                        numeracion_trans+=1
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    break
+
+
+
+
+
     #Método para imprimir lista
     def mostrar_empresa2(self):
         tmp = self.primero
@@ -80,7 +125,10 @@ class listaempresa():
             print("Nombre: ", tmp.dato[1])
             print("Abreviación: ", tmp.dato[2])
             tmp=tmp.getsiguiente()
-            
+
+
+
+
     def eliminardatos(self):
         if self.size>0:
             self.primero=None
@@ -104,13 +152,10 @@ class listaempresa():
                 if bus != tmp.dato[0]:
                     tmp=tmp.getsiguiente()
                 else:
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("-- EMPRESA SELECCIONADA --")
+                    print("- - - - - - - EMPRESA SELECCIONADA - - - - - - -")
                     print("ID: ", tmp.dato[0])
                     print("Nombre: ", tmp.dato[1])
                     print("Abreviación: ", tmp.dato[2])
-                    print("--PUNTOS DE ATENCIÓN--")
                     numeracion_puntoa=0
                     for i in tmp.dato[3]:    
                         print("ID: ", tmp.dato[3][numeracion_puntoa][0])
@@ -145,6 +190,10 @@ class listaempresa():
                                     break
                     break
 
+
+
+
+
     def empresaseleccionada2(self, bus, punto):
             tmp = self.primero
             numeracion_puntoa2=0
@@ -152,19 +201,15 @@ class listaempresa():
                 if bus != tmp.dato[0]:
                     tmp=tmp.getsiguiente()
                 else:
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("-- EMPRESA SELECCIONADA --")
+                    print("- - - - - - - EMPRESA SELECCIONADA - - - - - - -")
                     print("ID: ", tmp.dato[0])
                     print("Nombre: ", tmp.dato[1])
                     print("Abreviación: ", tmp.dato[2])
-                    print("--PUNTOS DE ATENCIÓN--")
-                    numeracion_puntoa=0
                     while punto != tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[3] son los puntos de atención
                         numeracion_puntoa2+=1
                     else:
                         print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                        print("-- PUNTO DE ATENCIÓN SELECCIONADO --")
+                        print("- - - - - PUNTO DE ATENCIÓN SELECCIONADO - - - - -")
                         print("ID: ", tmp.dato[3][numeracion_puntoa2][0])
                         print("Nombre: ", tmp.dato[3][numeracion_puntoa2][1])
                         print("Direccion: ", tmp.dato[3][numeracion_puntoa2][2])
@@ -219,13 +264,10 @@ class listaempresa():
                 if bus != tmp.dato[0]:
                     tmp=tmp.getsiguiente()
                 else:
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("-- EMPRESA SELECCIONADA --")
+                    print("- - - - - - - EMPRESA SELECCIONADA - - - - - - -")
                     print("ID: ", tmp.dato[0])
                     print("Nombre: ", tmp.dato[1])
                     print("Abreviación: ", tmp.dato[2])
-                    print("--PUNTOS DE ATENCIÓN--")
                     numeracion_puntoa=0
                     for i in tmp.dato[3]:    
                         print("ID: ", tmp.dato[3][numeracion_puntoa][0])
@@ -261,10 +303,7 @@ class listaempresa():
                         escritorios=input("Selecciona el ID del escritorio que deseas activar: ")
                         numeracion_esc2=0
                         while tmp.dato[4][numeracion_esc2][1]!=escritorios:
-                            try:
                                 numeracion_esc2+=1
-                            except:
-                                print("Todos los escritorios estan activados")
                         else:
                             tmp.dato[4][numeracion_esc2][4]=True  
                             break      
@@ -300,10 +339,7 @@ class listaempresa():
                         escritorios=input("Selecciona el ID del escritorio que deseas activar: ")
                         numeracion_esc2=0
                         while tmp.dato[4][numeracion_esc2][1]!=escritorios:
-                            try:
-                                numeracion_esc2+=1
-                            except:
-                                print("Todos los escritorios estan activados")
+                            numeracion_esc2+=1    
                         else:
                             tmp.dato[4][numeracion_esc2][4]=True  
                             break   
@@ -319,13 +355,10 @@ class listaempresa():
                 if bus != tmp.dato[0]:
                     tmp=tmp.getsiguiente()
                 else:
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
-                    print("-- EMPRESA SELECCIONADA --")
+                    print("- - - - - - - EMPRESA SELECCIONADA - - - - - - -")
                     print("ID: ", tmp.dato[0])
                     print("Nombre: ", tmp.dato[1])
                     print("Abreviación: ", tmp.dato[2])
-                    print("--PUNTOS DE ATENCIÓN--")
                     numeracion_puntoa=0
                     for i in tmp.dato[3]:    
                         print("ID: ", tmp.dato[3][numeracion_puntoa][0])

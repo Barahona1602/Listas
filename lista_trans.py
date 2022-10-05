@@ -11,9 +11,9 @@ class listatrans():
         self.ultimo= None
         self.size = 0
 
-    def insertar_trans(self, id_transaccion, idEmpresa_trans, idPunto_trans, idEscritorio_trans, dpi_trans, nombre_trans, idT_trans, cant_trans):
+    def insertar_trans(self, id_transaccion, idEmpresa_trans, idPunto_trans, idEscritorio_trans, clientes, idT_trans):
         global transaccionesE
-        transaccionesE= nodo(dato=[id, id_transaccion, idEmpresa_trans, idPunto_trans, idEscritorio_trans, dpi_trans, nombre_trans, idT_trans, cant_trans])
+        transaccionesE= nodo(dato=[id_transaccion, idEmpresa_trans, idPunto_trans, idEscritorio_trans, clientes, idT_trans])
         if self.primero is None:
             self.primero = transaccionesE
             self.ultimo= transaccionesE
@@ -26,36 +26,74 @@ class listatrans():
 
 
 
-    def mostrar_trans(self):
-        tmp = self.primero
-        while tmp is not None:
-            print("--TRANSACCIONES--")
-            print("ID: ", tmp.dato[0])
-            trans_id=tmp.dato[0]
-            print("ID Empresa: ", tmp.dato[1])
-            trans_idE=tmp.dato[1]
-            print("ID Punto de Atención: ", tmp.dato[2])
-            trans_idP=tmp.dato[2]
-            cont_trans=0
-            escritorios=[]
-            for i in tmp.dato[3]:
-                print("Escritorios activos: ", tmp.dato[3][cont_trans][0])
-                escritorios.append(tmp.dato[3][cont_trans][0])
-                cont_trans+=1
-            print("DPI: ", tmp.dato[4])
-            trans_dpi=tmp.dato[4]
-            print("Nombre del cliente: ", tmp.dato[5])
-            trans_cliente=tmp.dato[5]
-            cont_id=0
-            for i in tmp.dato[6]:
-                print("ID transacción: ", tmp.dato[6][cont_id][0])
-                print("Cantidad: ", tmp.dato[7][cont_id][0])
-                trans_idtrans=[]
-                trans_cant=[]
-                trans_idtrans.append([tmp.dato[6][cont_id][0]])
-                trans_cant.append([tmp.dato[7][cont_id][0]])
-                cont_id+=1
+    def mostrar_trans(self): 
+        tmp = self.primero 
+        while tmp is not None: 
+            
+            contadora3=0 
+            print("--TRANSACCIONES--") 
+            print("ID: ", tmp.dato[0]) 
+            print("ID Empresa: ", tmp.dato[1]) 
+            print("ID Punto de Atención: ", tmp.dato[2]) 
+            contadora1=0 
+            for i in tmp.dato[3]: 
+                print("Escritorios activos: ", tmp.dato[3][contadora1][0]) 
+                contadora1+=1 
+            contadora2=0
+            for j in tmp.dato[4]:   
+                print("--CLIENTE--") 
+                print("DPI: ", tmp.dato[4][contadora2][0]) 
+                print("Nombre del cliente: ", tmp.dato[4][contadora2][1]) 
+                print("--TRANSACIONES--")
+                cont_id=0 
+                for l in tmp.dato[5]: 
+                    if tmp.dato[5][cont_id][0]!=tmp.dato[4][contadora2][0]:
+                        cont_id+=1
+                    else:
+                        while tmp.dato[5][cont_id][0]==tmp.dato[4][contadora2][0]:    
+                            print("ID transacción: ", tmp.dato[5][cont_id][1]) 
+                            print("Cantidad: ", tmp.dato[5][cont_id][2]) 
+                            cont_id+=1 
+                            break
+                contadora2+=1     
+            contadora3+=1 
+            print("-------------------------")
             tmp=tmp.getsiguiente()
+
+
+
+
+
+    def agregarcliente(self, idE, dpi, cliente, trans, cantidad): 
+        tmp = self.primero 
+        while tmp is not None: 
+            if idE != tmp.dato[1]:
+                tmp=tmp.getsiguiente()
+            else:
+                contadora2=0
+                for j in tmp.dato[4]:   
+                    print("--CLIENTE--") 
+                    print("DPI: ", tmp.dato[4][contadora2][0]) 
+                    print("Nombre del cliente: ", tmp.dato[4][contadora2][1])
+                    print("--TRANSACIONES--")
+                    cont_id=0  
+                    for l in tmp.dato[5]: 
+                        if tmp.dato[5][cont_id][0]!=tmp.dato[4][contadora2][0]:
+                            cont_id+=1
+                        else:
+                            while tmp.dato[5][cont_id][0]==tmp.dato[4][contadora2][0]:    
+                                print("ID transacción: ", tmp.dato[5][cont_id][1]) 
+                                print("Cantidad: ", tmp.dato[5][cont_id][2]) 
+                                cont_id+=1 
+                                break
+                    contadora2+=1     
+                print("-------------------------")
+                print(contadora2)
+                break
+
+
+
+
 
 
 

@@ -5,11 +5,12 @@ import xml.etree.ElementTree as ET
 import numpy as np
 from lista_empresa import listaempresa
 from lista_trans import listatrans
+from graphviz import Digraph
+import os
 
 
 listaempresa=listaempresa()
 listatrans=listatrans()
-
 
 
 def compile():
@@ -58,6 +59,30 @@ def cargararchivo():
 
 
 
+def agregarcliente():
+    listaempresa.mostrarinicio()
+    idE=input("Ingrese el ID de empresa: ")
+    idP=input("Ingrese el ID del punto de atención: ")
+    listaempresa.mostrartrans(idE, idP)
+    print("- - Agregar cliente - -")
+    id_transaccion=input("ID de transaccion: ")
+    dpi=input("Ingrese su DPI: ")
+    nombre=input("Ingrese su nombre: ")
+    cantidad=input("Ingrese cantidad de transacciones: ")
+    print("- - CLIENTE AGREGADO - - ")
+    print("Nombre: ", nombre)
+    print("DPI: ", dpi)
+    print("ID de la transacción: ",id_transaccion)
+    print("Cantidad de transacciones: ", cantidad)
+
+
+
+
+
+
+
+
+
 
 def agregarempresa():
     empresa_id=input("Ingrese el id de la empresa: ")
@@ -99,8 +124,9 @@ def agregarempresa():
                     
      
 def insertar_trans():
-    archivo = filedialog.askopenfilename(initialdir="C:/", title="abrir", filetypes=(("XML files",".XML"),("Todos los archivos",".*")))
-    datos = ET.parse(archivo)
+    global archivo2
+    archivo2 = filedialog.askopenfilename(initialdir="C:/", title="abrir", filetypes=(("XML files",".XML"),("Todos los archivos",".*")))
+    datos = ET.parse(archivo2)
     
     for k in datos.findall('configInicial'):
         trans_id=(k.attrib.get('id'))
@@ -112,7 +138,7 @@ def insertar_trans():
         global escritorio
         escritorio=[]
         transaccion=[]
-        cantidad=[]
+        clientes=[]
         for m in escritorio_act.findall('escritorio'):
             global escritorio_id
             escritorio_id=(m.attrib.get('idEscritorio'))
@@ -121,15 +147,15 @@ def insertar_trans():
         for n in clientes_list.findall('cliente'):
             cliente_dpi=(n.attrib.get('dpi'))
             cliente_nombre=(n.find('nombre').text)
+            clientes.append([cliente_dpi, cliente_nombre])
             trans_list=n.find('listadoTransacciones')
             for l in trans_list.findall('transaccion'):
                 trans_id=l.attrib.get('idTransaccion')
                 trans_cantidad=l.attrib.get('cantidad')
-                transaccion.append([trans_id])
-                cantidad.append([trans_cantidad])
+                transaccion.append([cliente_dpi, trans_id, trans_cantidad])
 
         #Agregar datos a la lista
-        listatrans.insertar_trans(trans_id, trans_idE, trans_idP, escritorio, cliente_dpi, cliente_nombre, transaccion, cantidad)
+        listatrans.insertar_trans(trans_id, trans_idE, trans_idP, escritorio, clientes, transaccion)
     # listaempresa.mostrar_empresa()
 
 
@@ -162,13 +188,84 @@ def pedirescritorio():
 
 
 
-def listadopuntosa():
-    for i in escritorio:
-        listaempresa.activarescritorios(trans_idE,trans_idP,*i)                    
-    listaempresa.empresaseleccionada2(trans_idE,trans_idP)
+def estadopuntosdeatencion():
+    datos = ET.parse(archivo2)
+      
+    for k in datos.findall('configInicial'):
+        trans_id=(k.attrib.get('id'))
+    
+        trans_idE=(k.attrib.get('idEmpresa'))
+        
+        trans_idP=(k.attrib.get('idPunto'))
+        escritorio_act=k.find('escritoriosActivos')
+        
+        escritorio=[]
+        transaccion=[]
+        clientes=[]
+        for m in escritorio_act.findall('escritorio'):    
+            escritorio_id=(m.attrib.get('idEscritorio'))
+            escritorio.append([escritorio_id])
+        clientes_list=k.find('listadoClientes')
+        for n in clientes_list.findall('cliente'):
+            cliente_dpi=(n.attrib.get('dpi'))
+            cliente_nombre=(n.find('nombre').text)
+            clientes.append([cliente_dpi, cliente_nombre])
+            trans_list=n.find('listadoTransacciones')
+            for l in trans_list.findall('transaccion'):
+                trans_id=l.attrib.get('idTransaccion')
+                trans_cantidad=l.attrib.get('cantidad')
+                transaccion.append([cliente_dpi, trans_id, trans_cantidad])
+
+        for i in escritorio:
+            listaempresa.activarescritorios(trans_idE,trans_idP,*i)                    
+        listaempresa.empresaseleccionada2(trans_idE,trans_idP)
 
 
+def simular():
+    datos = ET.parse(archivo2)
+    cont=0  
+    for k in datos.findall('configInicial'):
+        trans_id1=(k.attrib.get('id'))
+        os.mkdir(trans_id1)
+        trans_idE=(k.attrib.get('idEmpresa'))
 
+        
+        trans_idP=(k.attrib.get('idPunto'))
+        escritorio_act=k.find('escritoriosActivos')
+        escritorio=[]
+        transaccion=[]
+        clientes=[]
+        for m in escritorio_act.findall('escritorio'):    
+            escritorio_id=(m.attrib.get('idEscritorio'))
+            escritorio.append([escritorio_id])
+            
+        clientes_list=k.find('listadoClientes')
+        for n in clientes_list.findall('cliente'):
+            cliente_dpi=(n.attrib.get('dpi'))
+            cliente_nombre=(n.find('nombre').text)
+            clientes.append([cliente_dpi, cliente_nombre])
+            trans_list=n.find('listadoTransacciones')
+            for l in trans_list.findall('transaccion'):
+                trans_id=l.attrib.get('idTransaccion')
+                trans_cantidad=l.attrib.get('cantidad')
+                g = Digraph('G', filename=trans_id1+'/'+cliente_nombre+'gv')
+                with g.subgraph(name='cluster_0') as c:
+                    c.attr(style='filled', color='lightgrey')
+                    c.node_attr.update(style='filled', color='white')
+                    for i in clientes_list:
+                        c.edges([(cliente_nombre, cliente_dpi), (cliente_dpi, trans_id), (trans_id, trans_cantidad)])
+                        c.attr(label=trans_idE)
+                
+                g.view()
+                cont+=1
+                transaccion.append([cliente_dpi, trans_id, trans_cantidad])
+                
+        
+        for i in escritorio:
+            listaempresa.activarescritorios(trans_idE,trans_idP,*i)
+        esc_activos=len(escritorio)              
+        listaempresa.empresaseleccionada2(trans_idE,trans_idP)
+        print(esc_activos)
 
 
 
@@ -182,7 +279,8 @@ def pedirNumeroEntero():
             print("1. Configuración de empresa")
             print("2. Selección de empresa y punto de atención")
             print("3. Manejo de puntos de atención")
-            print("4. Salir de programa")
+            print("4. Ver empresas y transacciones agregadas")
+            print("5. Salir de programa")
             
             print ("Elige una opcion")
             num = int(input("Introduce un número: "))
@@ -251,7 +349,7 @@ def pedirNumeroEntero():
 
 
                 if num2==1:
-                    listadopuntosa()
+                    estadopuntosdeatencion()
                 
                 elif num2==2:
                     seleccion=False
@@ -298,31 +396,32 @@ def pedirNumeroEntero():
                 elif num2==4:
                     pass
                 elif num2==5:
-                    pass
+                    agregarcliente()
                 elif num2==6:
-                    pass
+                    simular()
                 elif num2==7:
                     pedirNumeroEntero()
                     
 
 
         elif opcion == 4:
+            print("- - - - - - - - - - - - - - - - - - ")
+            listaempresa.mostrar_empresa()
+            print("- - - - - - - - - - - - - - - - - - ")
+            print("- - - - - - - - - - - - - - - - - - ")
+            print("- - - - - - - - - - - - - - - - - - ")
+            listatrans.mostrar_trans()
+            pedirNumeroEntero()
+        
+        
+        elif opcion == 5:
             print(" - - - - - - - - - - - - - - -")
             print("ESPERAMOS VERTE PRONTO")
             print(" - - - - - - - - - - - - - - -")
             quit()
-        
-        
-        elif opcion == 5:
-            print("Cargando empresa...")
-            listaempresa.mostrar_empresa()
-            pedirNumeroEntero()
-        elif opcion==6:
-            print("Cargando clientes...")
-            listatrans.mostrar_trans()
-            pedirNumeroEntero()
+
         else:
-            print ("Introduce un numero entre 1 y 7")
+            print ("Introduce un numero entre 1 y 5")
 
 compile()
 
