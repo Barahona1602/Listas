@@ -11,17 +11,17 @@ class listatrans():
         self.ultimo= None
         self.size = 0
 
-    def insertar_trans(self, id, idE, idP, idEs, dpi, nombre, idT, cant):
-        global empresa_trans
-        empresa_trans= nodo(dato=[id, idE, idP, idEs, dpi, nombre, idT, cant])
+    def insertar_trans(self, id_transaccion, idEmpresa_trans, idPunto_trans, idEscritorio_trans, dpi_trans, nombre_trans, idT_trans, cant_trans):
+        global transaccionesE
+        transaccionesE= nodo(dato=[id, id_transaccion, idEmpresa_trans, idPunto_trans, idEscritorio_trans, dpi_trans, nombre_trans, idT_trans, cant_trans])
         if self.primero is None:
-            self.primero = empresa_trans
-            self.ultimo= empresa_trans
+            self.primero = transaccionesE
+            self.ultimo= transaccionesE
         else:
             tmp = self.primero
             while tmp.getsiguiente() is not None:
                 tmp=tmp.getsiguiente()
-            tmp.setsiguiente(empresa_trans)
+            tmp.setsiguiente(transaccionesE)
 
 
 
@@ -55,8 +55,9 @@ class listatrans():
                 trans_idtrans.append([tmp.dato[6][cont_id][0]])
                 trans_cant.append([tmp.dato[7][cont_id][0]])
                 cont_id+=1
-            # listaempresa.trans(trans_id, trans_idE, trans_idP, escritorios, trans_dpi, trans_cliente, trans_idtrans, trans_cant)
             tmp=tmp.getsiguiente()
+
+
 
 
     def eliminardatos(self):

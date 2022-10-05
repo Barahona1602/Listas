@@ -23,7 +23,6 @@ def compile():
 
 #Método para cargar archivo y leerlo
 def cargararchivo():
-    #Abrir archivos (XML y todos los archivos)
     archivo = filedialog.askopenfilename(initialdir="C:/", title="abrir", filetypes=(("XML files",".XML"),("Todos los archivos",".*")))
     datos = ET.parse(archivo)
     
@@ -46,7 +45,7 @@ def cargararchivo():
                 escritorio_id=(m.attrib.get('id'))
                 escritorio_codigo=(m.find('identificacion').text)
                 escritorio_encargado=(m.find('encargado').text)
-                escritorio_estado=True
+                escritorio_estado=False
                 escritorio.append([puntosa_id, escritorio_id, escritorio_codigo, escritorio_encargado, escritorio_estado])
         for n in lista_trans.findall('transaccion'):
             trans_id=(n.attrib.get('id'))
@@ -54,10 +53,9 @@ def cargararchivo():
             trans_tiempo=(n.find('tiempoAtencion').text)
             trans.append([trans_id, trans_nombre, trans_tiempo])
                 
-        #Agregar datos al nodo a través de la lista
+        #Agregar datos a la lista
         listaempresa.insertar_empresa(empresa_id, empresa_nombre, empresa_abr, puntosa, escritorio, trans)
-    # #llamar método para imprimir lista
-    # listaempresa.mostrar_empresa()
+
 
 
 
@@ -101,19 +99,22 @@ def agregarempresa():
                     
      
 def insertar_trans():
-    #Abrir archivos (XML y todos los archivos)
     archivo = filedialog.askopenfilename(initialdir="C:/", title="abrir", filetypes=(("XML files",".XML"),("Todos los archivos",".*")))
     datos = ET.parse(archivo)
     
     for k in datos.findall('configInicial'):
-        config_id=(k.attrib.get('id'))
-        config_idE=(k.attrib.get('idEmpresa'))
-        config_idP=(k.attrib.get('idPunto'))
+        trans_id=(k.attrib.get('id'))
+        global trans_idE
+        trans_idE=(k.attrib.get('idEmpresa'))
+        global trans_idP
+        trans_idP=(k.attrib.get('idPunto'))
         escritorio_act=k.find('escritoriosActivos')
+        global escritorio
         escritorio=[]
         transaccion=[]
         cantidad=[]
         for m in escritorio_act.findall('escritorio'):
+            global escritorio_id
             escritorio_id=(m.attrib.get('idEscritorio'))
             escritorio.append([escritorio_id])
         clientes_list=k.find('listadoClientes')
@@ -127,8 +128,8 @@ def insertar_trans():
                 transaccion.append([trans_id])
                 cantidad.append([trans_cantidad])
 
-        #Agregar datos al nodo a través de la lista
-        listatrans.insertar_trans(config_id, config_idE, config_idP, escritorio, cliente_dpi, cliente_nombre, transaccion, cantidad)
+        #Agregar datos a la lista
+        listatrans.insertar_trans(trans_id, trans_idE, trans_idP, escritorio, cliente_dpi, cliente_nombre, transaccion, cantidad)
     # listaempresa.mostrar_empresa()
 
 
@@ -136,8 +137,35 @@ def pedirempresa():
     listaempresa.mostrar_empresa2()
     busqueda=input("Seleccione una empresa por id: ")
     listaempresa.empresaseleccionada(busqueda)
+
+
+
+def pedirescritorio():
+    print("- - - ACTIVACIÓN DE ESCRITORIO - - -")
+    print("1. Seleccionar empresa y punto de atención")
+    print("2. Usar selección actual de configuración")
+    print("3. Regresar")
+    seleccion=False
+    num=int(input("Seleccione una opción: "))
+    while not seleccion:
+        if num==1:
+            listaempresa.mostrar_empresa2()
+            busqueda=input("Seleccione una empresa por id: ")
+            listaempresa.escritoriosa(busqueda)
+            num=0
+        elif num==2:
+            listaempresa.activarescritoriosauto(trans_idE,trans_idP)
+            num=0
+        elif num==3:
+            pedirNumeroEntero()
     
 
+
+
+def listadopuntosa():
+    for i in escritorio:
+        listaempresa.activarescritorios(trans_idE,trans_idP,*i)                    
+    listaempresa.empresaseleccionada2(trans_idE,trans_idP)
 
 
 
@@ -223,11 +251,50 @@ def pedirNumeroEntero():
 
 
                 if num2==1:
-                    pass
+                    listadopuntosa()
+                
                 elif num2==2:
-                    pass
+                    seleccion=False
+                    while not seleccion:
+                        print("- - - ACTIVACIÓN DE ESCRITORIO - - -")
+                        print("1. Seleccionar empresa y punto de atención")
+                        print("2. Usar selección actual de configuración")
+                        print("3. Regresar")
+                        
+                        num=int(input("Seleccione una opción: "))
+                        
+                        if num==1:
+                            listaempresa.mostrar_empresa2()
+                            busqueda=input("Seleccione una empresa por id: ")
+                            listaempresa.escritoriosa(busqueda)
+                        elif num==2:
+                            listaempresa.activarescritoriosauto(trans_idE,trans_idP)
+                            
+                        elif num==3:
+                            pedirNumeroEntero()
+
+
+
                 elif num2==3:
-                    pass
+                    seleccion=False
+                    while not seleccion:
+                        print("- - - DESACTIVACIÓN DE ESCRITORIO - - -")
+                        print("1. Seleccionar empresa y punto de atención")
+                        print("2. Usar selección actual de configuración")
+                        print("3. Regresar")
+                        
+                        num=int(input("Seleccione una opción: "))
+                        
+                        if num==1:
+                            listaempresa.mostrar_empresa2()
+                            busqueda=input("Seleccione una empresa por id: ")
+                            listaempresa.escritoriosdesa(busqueda)
+                        elif num==2:
+                            listaempresa.desactivarescritoriosauto(trans_idE,trans_idP)
+                            
+                        elif num==3:
+                            pedirNumeroEntero()
+
                 elif num2==4:
                     pass
                 elif num2==5:

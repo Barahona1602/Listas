@@ -2,8 +2,8 @@
 <listadoInicial>
     <configInicial id="21" idEmpresa="8" idPunto="2">
         <escritoriosActivos>
+            <!-- <escritorio idEscritorio="1"/> -->
             <escritorio idEscritorio="5"/>
-            <escritorio idEscritorio="14"/>
         </escritoriosActivos>
         <listadoClientes>
             <cliente dpi="145587">

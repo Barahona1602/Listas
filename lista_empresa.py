@@ -96,26 +96,6 @@ class listaempresa():
             tmp=tmp.getsiguiente()
             
 
-    def trans(self, ids, idE, idP, idEs, dpi, nombre, idT, cant):
-        global id2
-        id2=ids
-        global idE2
-        idE2=idE
-        global idP2
-        idP2=idP
-        global idEs2
-        idEs2=[]
-        idEs2=idEs
-        global dpi2
-        dpi2=dpi
-        global nombre2
-        nombre2=nombre
-        global idT2
-        idT2=[]
-        idT2=idT
-        global cant2
-        cant2=[]
-        cant2=cant
 
     def empresaseleccionada(self, bus):
             tmp = self.primero
@@ -165,5 +145,266 @@ class listaempresa():
                                     break
                     break
 
+    def empresaseleccionada2(self, bus, punto):
+            tmp = self.primero
+            numeracion_puntoa2=0
+            while tmp is not None:
+                if bus != tmp.dato[0]:
+                    tmp=tmp.getsiguiente()
+                else:
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("-- EMPRESA SELECCIONADA --")
+                    print("ID: ", tmp.dato[0])
+                    print("Nombre: ", tmp.dato[1])
+                    print("Abreviación: ", tmp.dato[2])
+                    print("--PUNTOS DE ATENCIÓN--")
+                    numeracion_puntoa=0
+                    while punto != tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[3] son los puntos de atención
+                        numeracion_puntoa2+=1
+                    else:
+                        print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                        print("-- PUNTO DE ATENCIÓN SELECCIONADO --")
+                        print("ID: ", tmp.dato[3][numeracion_puntoa2][0])
+                        print("Nombre: ", tmp.dato[3][numeracion_puntoa2][1])
+                        print("Direccion: ", tmp.dato[3][numeracion_puntoa2][2])
+                        print("-- ESCRITORIOS --")
+                        numeracion_esc=0
+                        for i in tmp.dato[4]:
+                            if tmp.dato[4][numeracion_esc][0]!=tmp.dato[3][numeracion_puntoa2][0]:
+                                numeracion_esc+=1
+                            else:
+                                #Comparo el id conectado de los escritorios con los id del punto de atención
+                                while tmp.dato[4][numeracion_esc][0]==tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[4] son los escritorios
+                                    print("ID: ", tmp.dato[4][numeracion_esc][1])
+                                    print("Código: ", tmp.dato[4][numeracion_esc][2])
+                                    print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                                    if tmp.dato[4][numeracion_esc][4]==True:
+                                        print("Estado de escritorio:  ACTIVO")
+                                    else:
+                                        print("Estado de escritorio:  INACTIVO")
+                                    numeracion_esc+=1
+                                    break
+                    break
+
+    def activarescritorios(self,bus,punto, escritorios):
+        tmp = self.primero
+        numeracion_puntoa2=0
+        while tmp is not None:
+            if bus != tmp.dato[0]:
+                tmp=tmp.getsiguiente()
+            else:
+                while punto != tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[3] son los puntos de atención
+                    numeracion_puntoa2+=1
+                else:
+                    numeracion_esc=0
+                    for i in tmp.dato[4]:
+                        if tmp.dato[4][numeracion_esc][0]!=tmp.dato[3][numeracion_puntoa2][0]:
+                            numeracion_esc+=1
+                        else:
+                            #Comparo el id conectado de los escritorios con los id del punto de atención
+                            while tmp.dato[4][numeracion_esc][0]==tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[4] son los escritorios
+                                while tmp.dato[4][numeracion_esc][1]==escritorios:
+                                    tmp.dato[4][numeracion_esc][4]=True
+                                    break
+                                numeracion_esc+=1
+                                break
+                                
+                break
+        
+    def escritoriosa(self, bus):
+            tmp = self.primero
+            numeracion_puntoa2=0
+            while tmp is not None:
+                if bus != tmp.dato[0]:
+                    tmp=tmp.getsiguiente()
+                else:
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("-- EMPRESA SELECCIONADA --")
+                    print("ID: ", tmp.dato[0])
+                    print("Nombre: ", tmp.dato[1])
+                    print("Abreviación: ", tmp.dato[2])
+                    print("--PUNTOS DE ATENCIÓN--")
+                    numeracion_puntoa=0
+                    for i in tmp.dato[3]:    
+                        print("ID: ", tmp.dato[3][numeracion_puntoa][0])
+                        print("Nombre: ", tmp.dato[3][numeracion_puntoa][1])
+                        print("Direccion: ", tmp.dato[3][numeracion_puntoa][2])
+                        numeracion_puntoa+=1
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    punto=input("Seleccione su punto de atención: ")
+                    while punto != tmp.dato[3][numeracion_puntoa2][0]:
+                        numeracion_puntoa2+=1
+                    else:
+                        print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                        print("-- PUNTO DE ATENCIÓN SELECCIONADO --")
+                        print("ID: ", tmp.dato[3][numeracion_puntoa2][0])
+                        print("Nombre: ", tmp.dato[3][numeracion_puntoa2][1])
+                        print("Direccion: ", tmp.dato[3][numeracion_puntoa2][2])
+                        print("-- ESCRITORIOS --")
+                        numeracion_esc=0
+                        for i in tmp.dato[4]:
+                            if tmp.dato[4][numeracion_esc][0]!=tmp.dato[3][numeracion_puntoa2][0]:
+                                numeracion_esc+=1
+                            else:
+                                while tmp.dato[4][numeracion_esc][0]==tmp.dato[3][numeracion_puntoa2][0]:
+                                    print("ID: ", tmp.dato[4][numeracion_esc][1])
+                                    print("Código: ", tmp.dato[4][numeracion_esc][2])
+                                    print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                                    if tmp.dato[4][numeracion_esc][4]==True:
+                                        print("Estado de escritorio:  ACTIVO")
+                                    else:
+                                        print("Estado de escritorio:  INACTIVO")
+                                    numeracion_esc+=1
+                                    break
+                        escritorios=input("Selecciona el ID del escritorio que deseas activar: ")
+                        numeracion_esc2=0
+                        while tmp.dato[4][numeracion_esc2][1]!=escritorios:
+                            try:
+                                numeracion_esc2+=1
+                            except:
+                                print("Todos los escritorios estan activados")
+                        else:
+                            tmp.dato[4][numeracion_esc2][4]=True  
+                            break      
 
 
+
+
+    def activarescritoriosauto(self,bus,punto):
+            tmp = self.primero
+            numeracion_puntoa2=0
+            while tmp is not None:
+                if bus != tmp.dato[0]:
+                    tmp=tmp.getsiguiente()
+                else:
+                    while punto != tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[3] son los puntos de atención
+                        numeracion_puntoa2+=1
+                    else:
+                        numeracion_esc=0
+                        for i in tmp.dato[4]:
+                            if tmp.dato[4][numeracion_esc][0]!=tmp.dato[3][numeracion_puntoa2][0]:
+                                numeracion_esc+=1
+                            else:
+                                while tmp.dato[4][numeracion_esc][0]==tmp.dato[3][numeracion_puntoa2][0]:
+                                    print("ID: ", tmp.dato[4][numeracion_esc][1])
+                                    print("Código: ", tmp.dato[4][numeracion_esc][2])
+                                    print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                                    if tmp.dato[4][numeracion_esc][4]==True:
+                                        print("Estado de escritorio:  ACTIVO")
+                                    else:
+                                        print("Estado de escritorio:  INACTIVO")
+                                    numeracion_esc+=1
+                                    break
+                        escritorios=input("Selecciona el ID del escritorio que deseas activar: ")
+                        numeracion_esc2=0
+                        while tmp.dato[4][numeracion_esc2][1]!=escritorios:
+                            try:
+                                numeracion_esc2+=1
+                            except:
+                                print("Todos los escritorios estan activados")
+                        else:
+                            tmp.dato[4][numeracion_esc2][4]=True  
+                            break   
+
+
+
+
+
+    def escritoriosdesa(self, bus):
+            tmp = self.primero
+            numeracion_puntoa2=0
+            while tmp is not None:
+                if bus != tmp.dato[0]:
+                    tmp=tmp.getsiguiente()
+                else:
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    print("-- EMPRESA SELECCIONADA --")
+                    print("ID: ", tmp.dato[0])
+                    print("Nombre: ", tmp.dato[1])
+                    print("Abreviación: ", tmp.dato[2])
+                    print("--PUNTOS DE ATENCIÓN--")
+                    numeracion_puntoa=0
+                    for i in tmp.dato[3]:    
+                        print("ID: ", tmp.dato[3][numeracion_puntoa][0])
+                        print("Nombre: ", tmp.dato[3][numeracion_puntoa][1])
+                        print("Direccion: ", tmp.dato[3][numeracion_puntoa][2])
+                        numeracion_puntoa+=1
+                    print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                    punto=input("Seleccione su punto de atención: ")
+                    while punto != tmp.dato[3][numeracion_puntoa2][0]:
+                        numeracion_puntoa2+=1
+                    else:
+                        print("- - - - - - - - - - - - - - - - - - - - - - - - -")
+                        print("-- PUNTO DE ATENCIÓN SELECCIONADO --")
+                        print("ID: ", tmp.dato[3][numeracion_puntoa2][0])
+                        print("Nombre: ", tmp.dato[3][numeracion_puntoa2][1])
+                        print("Direccion: ", tmp.dato[3][numeracion_puntoa2][2])
+                        print("-- ESCRITORIOS --")
+                        numeracion_esc=0
+                        for i in tmp.dato[4]:
+                            if tmp.dato[4][numeracion_esc][0]!=tmp.dato[3][numeracion_puntoa2][0]:
+                                numeracion_esc+=1
+                            else:
+                                while tmp.dato[4][numeracion_esc][0]==tmp.dato[3][numeracion_puntoa2][0]:
+                                    print("ID: ", tmp.dato[4][numeracion_esc][1])
+                                    print("Código: ", tmp.dato[4][numeracion_esc][2])
+                                    print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                                    if tmp.dato[4][numeracion_esc][4]==True:
+                                        print("Estado de escritorio:  ACTIVO")
+                                    else:
+                                        print("Estado de escritorio:  INACTIVO")
+                                    numeracion_esc+=1
+                                    break
+                        escritorios=input("Selecciona el ID del escritorio que deseas activar: ")
+                        numeracion_esc2=0
+                        while tmp.dato[4][numeracion_esc2][1]!=escritorios:
+                            try:
+                                numeracion_esc2+=1
+                            except:
+                                print("Todos los escritorios estan desactivados")
+                        else:
+                            tmp.dato[4][numeracion_esc2][4]=False 
+                            break      
+
+
+
+
+    def desactivarescritoriosauto(self,bus,punto):
+            tmp = self.primero
+            numeracion_puntoa2=0
+            while tmp is not None:
+                if bus != tmp.dato[0]:
+                    tmp=tmp.getsiguiente()
+                else:
+                    while punto != tmp.dato[3][numeracion_puntoa2][0]: #tmp.dato[3] son los puntos de atención
+                        numeracion_puntoa2+=1
+                    else:
+                        numeracion_esc=0
+                        for i in tmp.dato[4]:
+                            if tmp.dato[4][numeracion_esc][0]!=tmp.dato[3][numeracion_puntoa2][0]:
+                                numeracion_esc+=1
+                            else:
+                                while tmp.dato[4][numeracion_esc][0]==tmp.dato[3][numeracion_puntoa2][0]:
+                                    print("ID: ", tmp.dato[4][numeracion_esc][1])
+                                    print("Código: ", tmp.dato[4][numeracion_esc][2])
+                                    print("Nombre: ", tmp.dato[4][numeracion_esc][3])
+                                    if tmp.dato[4][numeracion_esc][4]==True:
+                                        print("Estado de escritorio:  ACTIVO")
+                                    else:
+                                        print("Estado de escritorio:  INACTIVO")
+                                    numeracion_esc+=1
+                                    break
+                        escritorios=input("Selecciona el ID del escritorio que deseas activar: ")
+                        numeracion_esc2=0
+                        while tmp.dato[4][numeracion_esc2][1]!=escritorios:
+                            try:
+                                numeracion_esc2+=1
+                            except:
+                                print("Todos los escritorios estan desactivados")
+                        else:
+                            tmp.dato[4][numeracion_esc2][4]=False  
+                            break   
+                                    
